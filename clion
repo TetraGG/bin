@@ -1,0 +1,3 @@
+#!/bin/sh
+
+~/clion-2017.3.2/bin/clion.sh &> /dev/null &

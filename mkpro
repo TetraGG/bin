@@ -1,0 +1,64 @@
+#!/bin/sh
+
+DGREY='\033[1;30m'
+YELLOW='\033[1;33m'
+NC='\033[0m'
+
+echo -e "${YELLOW}Type the git repository URL${NC}"
+echo -e
+read repo
+echo -e "${DGREY}"
+git clone "$repo"
+cd "$(find ./ -name .git)/.."
+echo -e "${NC}"
+
+authors
+
+echo -e "${DGREY}"
+
+git add AUTHORS
+git commit -m "Init repo: AUTHORS added"
+
+echo -e
+echo -e "${YELLOW}Type directories one by one and \"s\" to stop${NC}"
+echo -e
+dirall=""
+read directory
+while [ "$directory" != "s" ]; do
+  mkdir $directory
+  dirall="$dirall $directory"
+  read directory
+done
+
+echo -e "${DGREY}"
+
+echo "TODO list" > TODO
+echo >> TODO
+for dire in $(echo $dirall); do
+  echo "[ ] $dire" >> TODO
+done
+echo >> TODO
+echo 'X = finished' >> TODO
+echo '~ = not finished' >> TODO
+echo '  = not implemented' >> TODO
+
+git add TODO
+git commit -m "TODO: added"
+
+echo -e
+
+echo "Title" > README
+echo "by ">> README
+echo >> README
+for dire in $(echo $dirall); do
+  echo "$dire" >> README
+done
+
+git add README
+git commit -m "README: added"
+
+echo -e
+
+git push
+
+echo -e "${NC}"

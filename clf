@@ -1,0 +1,12 @@
+#!/bin/sh
+
+if [ $? == 1 ];then
+  echo "$(clang-format $1)"
+  echo
+  echo "Do it fill ?"
+  read ans
+  if [ "$ans" == "y" ];
+    cat clang-format | echo > .tmp
+    cat tmp | echo > $1
+  fi
+fi

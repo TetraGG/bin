@@ -1,0 +1,3 @@
+#!/bin/sh
+
+/afs/cri.epita.net/resources/archlinux/bin/rider-eap &> /dev/null &

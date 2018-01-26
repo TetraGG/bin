@@ -1,0 +1,15 @@
+#!/bin/sh
+
+DGREY='\033[1;37m'
+YELLOW='\033[1;33m'
+NC='\033[0m'
+
+rm -f AUTHORS
+touch AUTHORS
+echo -e "${YELLOW}Type your login or \"s\" to stop${NC}"
+echo -e
+read author
+while [ "$author" != "s" ]; do
+  echo "* $author" >> AUTHORS
+  read author
+done
