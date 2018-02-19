@@ -1,0 +1,39 @@
+#!/bin/sh
+
+REMOTE="rtc@pie.cri.epita.net"
+PORT="2250"
+
+target=a.out
+
+for arg ; do
+	case "$arg" in
+		-o)
+			shift
+			target=$1
+			;;
+		-*)
+			echo "$0 [-o output] files..." 2>&1
+			exit 1
+			;;
+		*)
+			break
+			;;
+	esac
+	shift
+done
+
+if [ $# -lt 1 ] ; then
+	echo "no input files" 2>&1
+	exit 1
+fi
+
+output=$(tar -czf - $@ | ssh -T $REMOTE -p $PORT)
+rc=$?
+if [ $rc -ne 0 ]; then
+	printf "%s" "$output" 2>&1
+	exit $rc
+fi
+
+echo "$output" | base64 -d > $target
+chmod +x $target
+exit 0

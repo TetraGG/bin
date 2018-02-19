@@ -5,7 +5,7 @@ if [ $? == 1 ];then
   echo
   echo "Do it fill ?"
   read ans
-  if [ "$ans" == "y" ];
+  if [ "$ans" == "y" ]; then
     cat clang-format | echo > .tmp
     cat tmp | echo > $1
   fi
